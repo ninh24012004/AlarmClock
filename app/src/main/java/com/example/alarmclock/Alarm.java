@@ -1,22 +1,25 @@
 package com.example.alarmclock;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 
-public class Alarm {
+public class Alarm implements Parcelable {
     private int id;
     private int hour;
     private int minute;
     private boolean status;
-    private String name;
+
 
     public Alarm() {
     }
 
-    public Alarm( int hour, int minute, boolean status, String name) {
+
+    public Alarm(int hour, int minute, boolean status) {
         this.hour = hour;
         this.minute = minute;
         this.status = status;
-        this.name = name;
     }
 
     public int getId() {
@@ -51,19 +54,45 @@ public class Alarm {
         this.status = status;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(hour);
+        dest.writeInt(minute);
+        dest.writeByte((byte) (status ? 1 : 0));
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
+    // Creator for Parcelable
+    public static final Parcelable.Creator<Alarm> CREATOR = new Parcelable.Creator<Alarm>() {
+        @Override
+        public Alarm createFromParcel(Parcel in) {
+            return new Alarm(in);
+        }
+
+        @Override
+        public Alarm[] newArray(int size) {
+            return new Alarm[size];
+        }
+    };
+
+    protected Alarm(Parcel in) {
+        id = in.readInt();
+        hour = in.readInt();
+        minute = in.readInt();
+        status = in.readByte() != 0;
+    }
+
+    @NonNull
     @Override
     public String toString() {
         String hourString, minuteString, format;
         if (hour > 12) {
-            hourString = (hour -12) + "";
+            hourString = (hour - 12) + "";
             format = " PM";
         } else if (hour == 0) {
             hourString = "12";
@@ -72,8 +101,8 @@ public class Alarm {
             hourString = "12";
             format = " PM";
         } else {
-          hourString = hour + "";
-          format = " AM";
+            hourString = hour + "";
+            format = " AM";
         }
 
         if (minute < 10) {

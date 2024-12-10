@@ -7,12 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,4 +57,16 @@ public class MainActivity extends AppCompatActivity {
         customAdapter = new CustomAdapter(getApplicationContext(), alarmList);
         listView.setAdapter(customAdapter);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        alarmList.clear();
+        List<Alarm> list = db.getAllAlarms();
+        alarmList.addAll(list);
+
+        customAdapter.notifyDataSetChanged();
+    }
+
 }

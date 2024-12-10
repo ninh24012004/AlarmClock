@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -25,11 +24,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddActivity"/>
-        <receiver android:name=".AlarmReceiver"
-            android:permission="android.permission.BROADCAST_STICKY"/>
+        <receiver android:name=".AlarmReceiver" />
         <service android:name=".AlarmNotificationService"
             android:enabled="true"
             android:exported="false"/>
+
     </application>
 
 </manifest>

@@ -38,11 +38,9 @@ public class CustomAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = layoutInflater.inflate(R.layout.row_item, null);
-        final Alarm selectedAlarm = alarmList.get(i);
-        final TextView nameTV = view.findViewById(R.id.nameTextView);
+        Alarm selectedAlarm = alarmList.get(i);
         final TextView alarmTV = view.findViewById(R.id.timeTextView);
         final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        nameTV.setText(selectedAlarm.getName());
         alarmTV.setText(selectedAlarm.toString());
 
         final Intent serviceIntent = new Intent(context, AlarmReceiver.class);
@@ -72,6 +70,7 @@ public class CustomAdapter extends BaseAdapter {
 
                 if (!b && selectedAlarm.toString().equals(MainActivity.activeAlarm)) {
                     serviceIntent.putExtra("extra", "off");
+
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, i, serviceIntent, PendingIntent.FLAG_IMMUTABLE);
                     alarmManager.cancel(pendingIntent);
                     context.sendBroadcast(serviceIntent);
@@ -82,7 +81,6 @@ public class CustomAdapter extends BaseAdapter {
         if (selectedAlarm.isStatus()) {
             serviceIntent.putExtra("extra", "on");
             serviceIntent.putExtra("active", selectedAlarm.toString());
-            serviceIntent.putExtra("alarmName", selectedAlarm.getName());
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, i, serviceIntent, PendingIntent.FLAG_IMMUTABLE);
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         }

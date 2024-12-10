@@ -4,22 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:descendantFocusability="blocksDescendants">
-    <RelativeLayout
+    <TextView
+        android:id="@+id/timeTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true">
-        <TextView
-            android:id="@+id/timeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="@dimen/time"/>
-        <TextView
-            android:id="@+id/nameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/name"
-            android:layout_below="@+id/timeTextView"/>
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        android:textSize="@dimen/time"
+        />
     <ToggleButton
         android:id="@+id/toggle"
         android:layout_width="wrap_content"
@@ -28,5 +18,4 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         />
-
 </RelativeLayout>

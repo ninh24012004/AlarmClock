@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AddActivity extends AppCompatActivity {
     private TimePicker timePicker;
-    private EditText editText;
     private Button buttonSave, buttonCancel;
 
     private Alarm alarm;
@@ -27,7 +26,6 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add);
 
         timePicker = findViewById(R.id.timePicker);
-        editText = findViewById(R.id.name);
         buttonCancel = findViewById(R.id.cancel);
         buttonSave = findViewById(R.id.save);
 
@@ -36,11 +34,10 @@ public class AddActivity extends AppCompatActivity {
             public void onClick(View view) {
                 int hour = timePicker.getHour();
                 int minute = timePicker.getMinute();
-                String name = editText.getText().toString();
 
                 DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
 
-                alarm = new Alarm(hour, minute, true, name);
+                alarm = new Alarm(hour, minute, true);
                 databaseHelper.addAlarm(alarm);
 
                 needRefresh = true;

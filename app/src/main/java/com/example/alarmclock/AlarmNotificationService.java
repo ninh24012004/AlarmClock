@@ -2,11 +2,15 @@ package com.example.alarmclock;
 
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.IBinder;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -34,16 +38,17 @@ public class AlarmNotificationService extends Service {
             notificationManager.createNotificationChannel(channel);
         }
 
-        String alarmName = intent.getStringExtra("alarmName");
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Thông báo")
-                .setContentText(alarmName)
+                .setContentTitle("Đã đến giờ học rồi!")
+                .setLargeIcon(bitmap)
                 .setSmallIcon(R.drawable.ic_alarm)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
                 .build();
 
         notificationManager.notify(1, notification);
-
         return START_NOT_STICKY;
     }
 

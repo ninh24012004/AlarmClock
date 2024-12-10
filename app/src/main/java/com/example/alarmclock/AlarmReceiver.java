@@ -4,6 +4,10 @@ import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+
+import java.util.Calendar;
+import java.util.List;
 
 public class AlarmReceiver extends BroadcastReceiver {
     @Override
@@ -17,6 +21,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 isRunning = true;
             }
         }
+
         Intent mIntent = new Intent(context, AlarmNotificationService.class);
         if (string.equals("on") && !isRunning) {
             context.startService(mIntent);
